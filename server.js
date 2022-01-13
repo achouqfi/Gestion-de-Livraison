@@ -20,6 +20,10 @@ app.use(bodyParser.json());
 
 //route api de manager de la livraison
 const manager = require('./app/routes/manager.route');
+// const manager = require('./app/routes/manager.route');
+// const manager = require('./app/routes/manager.route');
+// const manager = require('./app/routes/manager.route');
+// const manager = require('./app/routes/manager.route');
 
 //prefix api de manager
 app.use('/api/manager', manager);
