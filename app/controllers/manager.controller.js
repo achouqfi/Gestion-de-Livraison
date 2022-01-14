@@ -10,10 +10,12 @@ exports.ManagerGet = async(req,res)=>{
 }
 
 exports.ManagerAdd = async(req,res)=>{
+    var password = (Math.random() + 1).toString(36).substring(8);
     const data = req.body;
     const addManage = new manager({
         name: data.name,
         email:data.email,
+        password: password
     })
     try{
         const newManager = await addManage.save()

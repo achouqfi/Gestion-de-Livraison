@@ -19,15 +19,18 @@ app.use(bodyParser.json());
 
 
 //route api de manager de la livraison
-const manager = require('./app/routes/manager.route');
-// const manager = require('./app/routes/manager.route');
-// const manager = require('./app/routes/manager.route');
-// const manager = require('./app/routes/manager.route');
-// const manager = require('./app/routes/manager.route');
+const manager = require('./app/routes/manager.routes');
+const ResLivraison = require('./app/routes/ResLivraison.routes');
+const adminG = require('./app/routes/adminG.routes');
+const camion = require('./app/routes/camion.routes');
+const chauffeur = require('./app/routes/chauffeur.routes');
 
-//prefix api de manager
+//prefix api
 app.use('/api/manager', manager);
-
+app.use('/api/ResLivraison', ResLivraison);
+app.use('/api/adminG', adminG);
+app.use('/api/camion', camion);
+app.use('/api/chauffeur', chauffeur);
 
 app.listen(port, () => {
   console.log("port", port);

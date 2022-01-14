@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const {
-    ManagerAdd,
-    ManagerGet,
-    ManagerDelete,
-    ManagerUpdate
-} = require('../controllers/manager.controller')
+    chauffeurAdd,
+    chauffeurGet,
+    chauffeurDelete,
+    chauffeurUpdate
+} = require('../controllers/chauffeur.controller')
 
-//get manager
-router.get('/', ManagerGet)
+//get chauffeur
+router.get('/', chauffeurGet)
 //ajout ajout
-router.post('/add',ManagerAdd);
+router.post('/add',chauffeurAdd);
 //ajout updat
-router.delete('/:id',ManagerDelete)
+router.delete('/:id',chauffeurDelete)
 //ajout delete
-router.put('/:id',ManagerUpdate)
+router.put('/:id',chauffeurUpdate)
 
 module.exports = router;

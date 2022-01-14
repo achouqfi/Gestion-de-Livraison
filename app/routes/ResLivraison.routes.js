@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const {
-    ResLivraisonAdd,
-    ResLivraisonGet,
-    ResLivraisonDelete,
-    ResLivraisonUpdate
+    resLivraisonAdd,
+    resLivraisonGet,
+    resLivraisonDelete,
+    resLivraisonUpdate
 } = require('../controllers/ResLivraison.controller')
 
 //get ResLivraison
-router.get('/', ResLivraisonGet)
+router.get('/', resLivraisonGet)
 //ajout ajout
-router.post('/add',ResLivraisonAdd);
+router.post('/add',resLivraisonAdd);
 //ajout updat
-router.delete('/:id',ResLivraisonDelete)
+router.delete('/:id',resLivraisonDelete)
 //ajout delete
-router.put('/:id',ResLivraisonUpdate)
+router.put('/:id',resLivraisonUpdate)
 
 module.exports = router;
