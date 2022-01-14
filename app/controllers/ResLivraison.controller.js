@@ -1,4 +1,5 @@
 const resLivraison = require('../models/resLivraison.model')
+const jwt = require("jsonwebtoken");
 
 exports.resLivraisonGet = async(req,res)=>{
     try {
@@ -9,11 +10,36 @@ exports.resLivraisonGet = async(req,res)=>{
     }
 }
 
+exports.login = async(req,res)=>{
+    try {
+        const resLivraisonGet = await resLivraison.find()
+        const ResLivraison = resLivraisonGet.find((admin) => admin.email == req.body.email && admin.password == req.body.password);
+        if (ResLivraison){
+            const token = jwt.sign(
+                { id: ResLivraison.id },
+                `${process.env.JWT_SECRET_KEY}`,  
+                {
+                    expiresIn: "1h",
+                }
+            );
+            res.json(token);
+        
+          }else {
+            res.status(400).send("information incorrect");
+          }
+
+    }catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
 exports.resLivraisonAdd = async(req,res)=>{
+    var password = (Math.random() + 1).toString(36).substring(8);
     const data = req.body;
     const addManage = new resLivraison({
         name: data.name,
         email:data.email,
+        password:password,
     })
     try{
         const newresLivraison = await addManage.save()

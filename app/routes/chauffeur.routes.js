@@ -4,11 +4,13 @@ const {
     chauffeurAdd,
     chauffeurGet,
     chauffeurDelete,
-    chauffeurUpdate
+    chauffeurUpdate,
+    login
 } = require('../controllers/chauffeur.controller')
 
 //get chauffeur
 router.get('/', chauffeurGet)
+router.post('/login', login)
 //ajout ajout
 router.post('/add',chauffeurAdd);
 //ajout updat

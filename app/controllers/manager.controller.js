@@ -1,9 +1,33 @@
 const manager = require('../models/manager.model')
+const jwt = require("jsonwebtoken");
 
 exports.ManagerGet = async(req,res)=>{
     try {
         const managerGet = await manager.find()
         res.json(managerGet)
+    }catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+exports.login = async(req,res)=>{
+    try {
+        const managerGet = await manager.find()
+   
+        const managerG = managerGet.find((admin) => admin.email == req.body.email && admin.password == req.body.password);
+        console.log(managerG);
+        if (managerG) {
+            const token = jwt.sign(
+                { id: managerG.id },
+                `${process.env.JWT_SECRET_KEY}`,  
+                {
+                    expiresIn: "1h"
+                }
+            );
+            res.json(token);
+        }else {
+            res.status(400).send("information incorrect");
+        }
     }catch (err) {
         res.status(500).json({ message: err.message })
     }

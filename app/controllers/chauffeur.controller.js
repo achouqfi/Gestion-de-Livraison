@@ -1,9 +1,33 @@
 const chauffeur = require('../models/chauffeur.model')
+const jwt = require("jsonwebtoken");
 
 exports.chauffeurGet = async(req,res)=>{
     try {
         const chauffeurGet = await chauffeur.find()
         res.json(chauffeurGet)
+    }catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+exports.login = async(req,res)=>{
+    try {
+        const chauffeurGet = await chauffeur.find()
+        const Chauffeur = chauffeurGet.find((admin) => admin.email == req.body.email && admin.password == req.body.password);
+        if (Chauffeur){
+            const token = jwt.sign(
+              { id: Chauffeur.id },
+              `${process.env.JWT_SECRET_KEY}`,  
+              {
+                expiresIn: "1h",
+              }
+            );
+            res.json(token);
+        
+          }else {
+            res.status(400).send("information incorrect");
+          }
+
     }catch (err) {
         res.status(500).json({ message: err.message })
     }

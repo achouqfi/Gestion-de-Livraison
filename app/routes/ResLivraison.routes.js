@@ -4,11 +4,14 @@ const {
     resLivraisonAdd,
     resLivraisonGet,
     resLivraisonDelete,
-    resLivraisonUpdate
+    resLivraisonUpdate,
+    login
 } = require('../controllers/ResLivraison.controller')
 
 //get ResLivraison
 router.get('/', resLivraisonGet)
+//get ResLivraison
+router.post('/login', login)
 //ajout ajout
 router.post('/add',resLivraisonAdd);
 //ajout updat

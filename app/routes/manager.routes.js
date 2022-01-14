@@ -4,13 +4,16 @@ const {
     ManagerAdd,
     ManagerGet,
     ManagerDelete,
-    ManagerUpdate
+    ManagerUpdate,
+    login
 } = require('../controllers/manager.controller')
 
 //get manager
 router.get('/', ManagerGet)
 //ajout ajout
 router.post('/add',ManagerAdd);
+//login manager
+router.post('/login',login);
 //ajout updat
 router.delete('/:id',ManagerDelete)
 //ajout delete
