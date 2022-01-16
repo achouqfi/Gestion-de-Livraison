@@ -39,7 +39,8 @@ exports.chauffeurAdd = async(req,res)=>{
     const addManage = new chauffeur({
         name: data.name,
         email:data.email,
-        password: password
+        password: password,
+        camion: data.camion
     })
     try{
         const newchauffeur = await addManage.save()

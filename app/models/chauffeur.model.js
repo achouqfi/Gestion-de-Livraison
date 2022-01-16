@@ -17,7 +17,8 @@ const chauffeurSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now
-  }
+  },
+  camion: [{type:mongoose.Schema.ObjectId, ref: 'camion' }]
 })
 
 module.exports = mongoose.model('chauffeur', chauffeurSchema)
