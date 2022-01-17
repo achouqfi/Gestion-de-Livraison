@@ -1,15 +1,17 @@
 const chauffeur = require('../models/chauffeur.model')
 const jwt = require("jsonwebtoken");
 
+//get all chauffeur
 exports.chauffeurGet = async(req,res)=>{
     try {
-        const chauffeurGet = await chauffeur.find()
+        const chauffeurGet = await chauffeur.find().populate("camion");
         res.json(chauffeurGet)
     }catch (err) {
         res.status(500).json({ message: err.message })
     }
 }
 
+//login chauffeur
 exports.login = async(req,res)=>{
     try {
         const chauffeurGet = await chauffeur.find()
@@ -33,9 +35,11 @@ exports.login = async(req,res)=>{
     }
 }
 
+//add new chauffeur
 exports.chauffeurAdd = async(req,res)=>{
     var password = (Math.random() + 1).toString(36).substring(8);
     const data = req.body;
+    // console.log(data);
     const addManage = new chauffeur({
         name: data.name,
         email:data.email,
@@ -50,6 +54,7 @@ exports.chauffeurAdd = async(req,res)=>{
     }
 }
 
+//delete chauffeur
 exports.chauffeurDelete = async(req,res)=>{
     const data= req.params.id;
     try {
@@ -60,6 +65,7 @@ exports.chauffeurDelete = async(req,res)=>{
     }
 }
 
+//update chauffeur
 exports.chauffeurUpdate = async(req,res)=>{
     const data= req.params.id;
     try {

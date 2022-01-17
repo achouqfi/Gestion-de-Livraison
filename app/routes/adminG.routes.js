@@ -1,12 +1,13 @@
 const express = require('express');
+const morgan = require('morgan')
 const router = express.Router();
 const {
     adminGGet,
     login
 } = require('../controllers/adminG.controller')
 
-//get adminG
-router.get('/', adminGGet)
-router.post('/login',login)
+//method routes adminG
+router.get('/',morgan('combined'),adminGGet)
+router.post('/login',morgan('combined'),login)
 
 module.exports = router;

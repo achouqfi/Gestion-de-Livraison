@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const CommandeSchema = new mongoose.Schema({
-    date: {
-        type: String,
-        required: true
-    },  
     heure: {
         type: String,
         required: true
@@ -29,7 +25,11 @@ const CommandeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    chauffeur: [{type:mongoose.Schema.ObjectId, ref: 'chauffeur' }]
+    status: {
+        type: String,
+        required: true
+    },
+    chauffeur: { type:mongoose.Schema.ObjectId, ref: 'chauffeur' }
 })
 
 module.exports = mongoose.model('commande', CommandeSchema)

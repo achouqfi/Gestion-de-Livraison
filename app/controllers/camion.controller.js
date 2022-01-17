@@ -1,5 +1,6 @@
 const camion = require('../models/camion.model')
 
+//get all camion
 exports.camionGet = async(req,res)=>{
     try {
         const camionGet = await camion.find()
@@ -9,6 +10,7 @@ exports.camionGet = async(req,res)=>{
     }
 }
 
+//add camion
 exports.camionAdd = async(req,res)=>{
     var password = (Math.random() + 1).toString(36).substring(8);
     const data = req.body;
@@ -25,6 +27,7 @@ exports.camionAdd = async(req,res)=>{
     }
 }
 
+//delete camion
 exports.camionDelete = async(req,res)=>{
     const data= req.params.id;
     try {
@@ -35,6 +38,7 @@ exports.camionDelete = async(req,res)=>{
     }
 }
 
+//update camion
 exports.camionUpdate = async(req,res)=>{
     const data= req.params.id;
     try {
