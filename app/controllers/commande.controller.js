@@ -1,6 +1,7 @@
 const commande = require('../models/commade.model')
 const nodemailer = require("nodemailer");
 const chauffeur = require('../models/chauffeur.model')
+const axios = require('axios')
 
 //get all commande
 exports.CommandeGet = async(req,res)=>{
@@ -12,31 +13,66 @@ exports.CommandeGet = async(req,res)=>{
     }
 }
 
+email = (email)=>{
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'testcoding975@gmail.com',
+          pass: 'testCoding1998'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'testcoding975@gmail.com',
+        to: email,
+        subject: 'vous avez une livraison',
+        text: 'link'
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+}
+
 //insert commande
 exports.CommandeAdd = async(req,res)=>{
     const data = req.body;
-    
+    let prix;
+    if(data.poids > 3){
+        prix = (data.poids - 3) * 5 + 120;
+    }else{
+        prix = data.poids * 40;
+    }
+    const response = await axios(`https://www.distance24.org/route.json?stops=${data.ville_depart}%7C${data.ville_arrive}`)
+
     const addManage = new commande({
         heure:data.heure,
         depart:data.depart,
-        arrive:data.arrive,
+        ville_depart:data.ville_depart,
+        ville_arrive:data.ville_arrive,
         poids:data.poids,
-        prix:data.prix,
-        distance_kilometrage:data.distance_kilometrage,
-        status:'en cours',
+        prix: prix,
+        distance_kilometrage:response.data.distances.join(),
+        status:'en cours'
     });
 
     try{
         const newcommande = await addManage.save();
         const chauffeurGet = await chauffeur.find().populate("camion");
-        
         chauffeurGet.forEach(element => {
             if(element.camion.type == "voiture" && data.poids > 0  && data.poids <= 200 ){
                 console.log(element.email);
+                email(element.email)
             }else if(element.camion.type == "petit" && data.poids >= 200 && data.poids <= 800 ){
                 console.log(element.email);
+                email(element.email)
             }else if(element.camion.type == "grand" && data.poids >= 800 && data.poids <= 1600 ){
                 console.log(element.email);
+                email(element.email)
             }
         });
         res.status(201).json(newcommande)

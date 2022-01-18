@@ -1,14 +1,12 @@
 const adminG = require('../models/adminG.model')
 const jwt = require("jsonwebtoken");
-const {apiErrorHandler} = require('../error/apiError');
 
 exports.adminGGet = async(req,res,next)=>{
     try {
         const adminGGet = await adminG.find()
         res.json(adminGGet)
     }catch (err) {
-        next(apiErrorHandler.badRequest('error while fetching general admins'));
-        return;
+        res.status(500).json({ message: err.message })
     }
 }
 

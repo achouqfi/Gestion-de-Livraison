@@ -4,15 +4,19 @@ const CommandeSchema = new mongoose.Schema({
     heure: {
         type: String,
         required: true
-    },  
+    },
     depart: {
         type: String,
         required: true
-    },  
-    arrive: {
+    },
+    ville_depart: {
         type: String,
         required: true
-    },  
+    },
+    ville_arrive: {
+        type: String,
+        required: true
+    },
     poids: {
         type: String,
         required: true
