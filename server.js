@@ -26,6 +26,7 @@ const adminG = require('./app/routes/adminG.routes');
 const camion = require('./app/routes/camion.routes');
 const chauffeur = require('./app/routes/chauffeur.routes');
 const commande = require('./app/routes/commande.routes');
+const prime = require('./app/routes/prime.routes');
 
 //prefix api
 app.use('/api/manager',manager);
@@ -34,6 +35,7 @@ app.use('/api/adminG', adminG);
 app.use('/api/camion', camion);
 app.use('/api/chauffeur', chauffeur);
 app.use('/api/commande', commande);
+app.use('/api/prime', prime);
 
 app.listen(port, () => {
   console.log("port", port);

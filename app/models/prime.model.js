@@ -9,7 +9,7 @@ const primeSchema = new mongoose.Schema({
     type: String,
     required: true
   }, 
-  camion: [{type:mongoose.Schema.ObjectId, ref: 'chauffeur' }],
+  chauffeur: [{type:mongoose.Schema.ObjectId, ref: 'chauffeur' }],
   Commande: [{type:mongoose.Schema.ObjectId, ref: 'commande' }]
 })
 
