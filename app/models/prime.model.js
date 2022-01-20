@@ -5,12 +5,12 @@ const primeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  montant: {
+  livraison_prix: {
     type: String,
     required: true
   }, 
   chauffeur: [{type:mongoose.Schema.ObjectId, ref: 'chauffeur' }],
-  Commande: [{type:mongoose.Schema.ObjectId, ref: 'commande' }]
+  livraison: [{type:mongoose.Schema.ObjectId, ref: 'commande' }]
 })
 
 module.exports = mongoose.model('prime', primeSchema)

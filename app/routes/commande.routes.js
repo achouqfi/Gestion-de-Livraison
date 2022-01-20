@@ -4,16 +4,19 @@ const {
     CommandeAdd,
     CommandeGet,
     CommandeDelete,
-    CommandeUpdate
+    CommandeUpdate,
+    CommandeStatusUpdate
 } = require('../controllers/commande.controller')
 
 //get commade
 router.get('/', CommandeGet)
-//ajout ajout
+//ajout
 router.post('/add',CommandeAdd);
-//ajout updat
+//delete
 router.delete('/:id',CommandeDelete)
-//ajout delete
+//updat
 router.put('/:id',CommandeUpdate)
+//delete
+router.put('/status/:id',CommandeStatusUpdate)
 
 module.exports = router;

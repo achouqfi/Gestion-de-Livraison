@@ -1,18 +1,20 @@
 const commande = require('../models/commade.model')
 const nodemailer = require("nodemailer");
 const chauffeur = require('../models/chauffeur.model')
+const prime = require('../models/prime.model')
 const axios = require('axios')
 
 //get all commande
 exports.CommandeGet = async(req,res)=>{
     try {
-        const commandeGet = await commande.find().populate("chauffeur")
+        const commandeGet = await commande.find().populate("chauffeur");
         res.json(commandeGet)
     }catch (err) {
         res.status(500).json({ message: err.message })
     }
 }
 
+//function d'email
 email = (email)=>{
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -101,6 +103,32 @@ exports.CommandeUpdate = async(req,res)=>{
             {$set: {name:req.body.name, email:req.body.email}}
         )
         res.json(updatedcommande)
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+}
+
+//update commande status
+exports.CommandeStatusUpdate = async(req,res)=>{
+    const mois  = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre "] ;
+    let date = new Date();
+    let nameMois = mois[date.getMonth()];
+    try {
+        // const updatedcommande = await commande.updateOne(
+        //     {_id:req.params.id},
+        //     {$set: { status:req.body.status,chauffeur:req.body.chauffeur_id}}
+        // )
+        const GetCommandeById = await commande.find({_id:req.params.id});
+        const prixCommande = GetCommandeById.find((prix) => {return prix.prix})
+        const addCommandeToPrime = new prime({
+            mois:nameMois,
+            livraison_prix:prixCommande.prix,
+            livraison:req.params.id,
+            chauffeur:req.body.chauffeur_id
+        })
+        // const addPrime = await  addCommandeToPrime.save()
+        console.log(prixCommande);
+        // res.json(updatedcommande,addPrime)
     } catch (err) {
         res.status(400).json({ message: err.message })
     }

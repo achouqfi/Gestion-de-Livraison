@@ -27,7 +27,7 @@ exports.Manager =(req, res, next) =>{
                 console.log(err.message);
             }else {
                 // console.log(decodedToken);
-                if(decodedToken.role == 'chefrayon'){
+                if(decodedToken.role == 'Manager'){
                     next()
                 }
             }
@@ -45,7 +45,7 @@ exports.ResLivraison =(req, res, next) =>{
             if (err) {
                 console.log(err.message);
             }else {
-                if(decodedToken.role == 'Cadmin'){
+                if(decodedToken.role == 'ResLivraison'){
                     res.cookie('ville', decodedToken.ville)
                     next()
                 }
@@ -64,7 +64,7 @@ exports.Chauffeur =(req, res, next) =>{
             if (err) {
                 console.log(err.message);
             }else {
-                if(decodedToken.role == 'Cadmin'){
+                if(decodedToken.role == 'Chauffeur'){
                     res.cookie('ville', decodedToken.ville)
                     next()
                 }
