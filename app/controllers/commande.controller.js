@@ -114,21 +114,20 @@ exports.CommandeStatusUpdate = async(req,res)=>{
     let date = new Date();
     let nameMois = mois[date.getMonth()];
     try {
-        // const updatedcommande = await commande.updateOne(
-        //     {_id:req.params.id},
-        //     {$set: { status:req.body.status,chauffeur:req.body.chauffeur_id}}
-        // )
-        const GetCommandeById = await commande.find({_id:req.params.id});
+        const updatedcommande = await commande.updateOne(
+            {_id:req.params.id},
+            {$set: { status:req.body.status,chauffeur:req.body.chauffeur_id}}
+        )
+        const GetCommandeById = await commande.find({id:req.params.id});
         const prixCommande = GetCommandeById.find((prix) => {return prix.prix})
         const addCommandeToPrime = new prime({
             mois:nameMois,
             livraison_prix:prixCommande.prix,
-            livraison:req.params.id,
-            chauffeur:req.body.chauffeur_id
+            chauffeur:req.body.chauffeur_id,
+            livraison:req.params.id
         })
-        // const addPrime = await  addCommandeToPrime.save()
-        console.log(prixCommande);
-        // res.json(updatedcommande,addPrime)
+        await addCommandeToPrime.save()
+        res.json(updatedcommande)
     } catch (err) {
         res.status(400).json({ message: err.message })
     }

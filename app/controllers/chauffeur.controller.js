@@ -1,4 +1,5 @@
 const chauffeur = require('../models/chauffeur.model')
+const camion = require('../models/camion.model')
 const jwt = require("jsonwebtoken");
 
 //get all chauffeur
@@ -39,7 +40,7 @@ exports.login = async(req,res)=>{
 exports.chauffeurAdd = async(req,res)=>{
     var password = (Math.random() + 1).toString(36).substring(8);
     const data = req.body;
-    // console.log(data);
+    console.log();
     const addManage = new chauffeur({
         name: data.name,
         email:data.email,
@@ -47,7 +48,11 @@ exports.chauffeurAdd = async(req,res)=>{
         camion: data.camion
     })
     try{
-        const newchauffeur = await addManage.save()
+        const chauffeurGet = await chauffeur.find({camion:data.camion}).populate("camion");
+        // if(chauffeurGet ==  ){
+            console.log(chauffeurGet);
+        // }
+        // const newchauffeur = await addManage.save()
         res.status(201).json(newchauffeur)
     }catch(err){
         res.status(404).json({ message : err.message })
