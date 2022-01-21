@@ -77,7 +77,7 @@ exports.CommandeAdd = async(req,res)=>{
                 email(element.email)
             }
         });
-        res.status(201).json(newcommande)
+        res.status(201).json(newcommande);
     }catch(err){
         res.status(404).json({ message : err.message })
     }

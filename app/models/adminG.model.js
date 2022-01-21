@@ -1,23 +1,23 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const AdminGSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
-  },  
+    required: true,
+  },
   date: {
     type: Date,
     required: true,
-    default: Date.now
-  }
-})
+    default: Date.now,
+  },
+});
 
-module.exports = mongoose.model('adminG', AdminGSchema)
+module.exports = mongoose.model("adminG", AdminGSchema);
