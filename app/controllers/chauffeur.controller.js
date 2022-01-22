@@ -22,12 +22,13 @@ exports.login = async (req, res) => {
     );
     if (Chauffeur) {
       const token = jwt.sign(
-        { id: Chauffeur.id },
+        { id: Chauffeur.id , role:"Chauffeur"},
         `${process.env.JWT_SECRET_KEY}`,
         {
           expiresIn: "1h",
         }
       );
+      res.cookie('jwt', token, { httpOnly: true })
       res.json(token);
     } else {
       res.status(400).send("information incorrect");

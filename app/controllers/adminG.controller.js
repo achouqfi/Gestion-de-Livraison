@@ -19,12 +19,13 @@ exports.login = async (req, res) => {
     );
     if (GAdmin) {
       const token = jwt.sign(
-        { id: GAdmin.id },
+        { id: GAdmin.id, role:"adminG" },
         `${process.env.JWT_SECRET_KEY}`,
         {
           expiresIn: "1h",
         }
       );
+      res.cookie('token', token, { httpOnly: true })
       res.json(token);
     } else {
       res.status(400).send("information incorrect");

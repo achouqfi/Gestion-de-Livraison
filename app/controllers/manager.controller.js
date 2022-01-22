@@ -21,12 +21,13 @@ exports.login = async (req, res) => {
     console.log(managerG);
     if (managerG) {
       const token = jwt.sign(
-        { id: managerG.id },
+        { id: managerG.id, role: "Manager" },
         `${process.env.JWT_SECRET_KEY}`,
         {
           expiresIn: "1h",
         }
       );
+      res.cookie('jwt', token, { httpOnly: true })
       res.json(token);
     } else {
       res.status(400).send("information incorrect");

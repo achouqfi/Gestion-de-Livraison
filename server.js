@@ -2,11 +2,13 @@ require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
 
 // connection a la base des donnés
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection
 db.on('error',(error)=> console.error(error))
+
 db.once('open',()=>console.log('connected to db'));
 
 const app = express();
@@ -14,7 +16,7 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 
 //route api de manager de la livraison
 const manager = require('./app/routes/manager.routes');

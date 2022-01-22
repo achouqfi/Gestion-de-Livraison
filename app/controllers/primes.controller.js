@@ -18,23 +18,20 @@ exports.chauffeurPrime = async(req,res,next)=>{
     try {
         let distance = 0;
         let prix = 0;
-        let poids = 0;
         const PrimeGetByChauffeur = await prime.find({chauffeur:req.params.id}).populate("livraison")
-        
         PrimeGetByChauffeur.forEach(element => {
             if(element.mois == nameMois){
                 distance += parseInt(element.livraison.distance_kilometrage);
                 prix += parseInt(element.livraison_prix)
             }
         });
-        console.log("distance :", distance);
         montantPrime = 0;
         if(distance => 1000 && distance <= 1999 ){
             montantPrime = prix * 0.15
         }else if(distance => 2000 && distance <= 2999){
-            montantPrime = prix * 0.15
+            montantPrime = prix * 0.22
         }else if(distance => 2500){
-            montantPrime = prix * 0.15
+            montantPrime = prix * 0.3
         }
         res.json(montantPrime)
     }catch (err) {
