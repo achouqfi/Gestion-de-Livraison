@@ -3,7 +3,7 @@ const prime = require('../models/prime.model')
 //Get primes
 exports.PrimeGet = async(req,res,next)=>{
     try {
-        const PrimeGet = await prime.find()
+        const PrimeGet = await prime.find().populate('livraison')
         res.json(PrimeGet)
     }catch (err) {
         res.status(500).json({ message: err.message })

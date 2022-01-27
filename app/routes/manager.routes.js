@@ -7,11 +7,14 @@ const {
     ManagerGet,
     ManagerDelete,
     ManagerUpdate,
+    ManagetById,
     login
 } = require('../controllers/manager.controller')
 
 //get manager
 router.get('/', morgan('common',{stream: fs.createWriteStream('./manager.log', {flags: 'a'})}), ManagerGet)
+//get by id
+router.get('/get/:id', morgan('common',{stream: fs.createWriteStream('./manager.log', {flags: 'a'})}), ManagetById)
 //ajout ajout
 router.post('/add',morgan('common',{stream: fs.createWriteStream('./manager.log', {flags: 'a'})}),ManagerAdd);
 //login manager

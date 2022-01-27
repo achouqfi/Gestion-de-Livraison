@@ -37,6 +37,16 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.ManagetById = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const managerGetByID = await manager.find({_id:req.params.id});
+    res.json(managerGetByID);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 exports.ManagerAdd = async (req, res) => {
   var password = (Math.random() + 1).toString(36).substring(8);
   const data = req.body;
@@ -44,6 +54,7 @@ exports.ManagerAdd = async (req, res) => {
     name: data.name,
     email: data.email,
     password: password,
+    datenaissance: data.datenaissance
   });
   try {
     const newManager = await addManage.save();
